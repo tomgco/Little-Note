@@ -1,0 +1,270 @@
+/* RESET
+----------------------------------------------------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size:100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+html {
+	overflow-y: scroll;
+	background-image: url("images/whitePlaster.png");
+}
+
+#wrap {
+	min-height: 100%;
+}
+
+/* CORE TYPOGRAPHY
+----------------------------------------------------------------------------------------*/
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1em;
+  line-height: 1.618em;
+  color: #333;
+  }
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.809em;
+  line-height: 1em;
+  }
+
+p, ul, ol, dl, blockquote {
+    font-size: 1em;
+    line-height: 1.618em;
+    margin-bottom: 1.618em; 
+    max-width: 30em; /* Optimal width for long-form text */
+  }
+    
+ul { list-style-type: disc; margin-left: 1.618em; }
+ol { list-style-type: decimal; margin-left: 1.618em; }
+nav ul, nav ol { list-style: none; margin: 0; padding: 0;}
+
+b, strong { font-weight: bold; }
+i, em { font-style: italic; }
+small { font-size: 80%; }
+
+a, a:visited { outline: none; color: #439BBD; text-decoration: none; }  
+a:hover { outline: none; text-decoration:none; }  
+a:active, a:focus { outline: none; }
+
+/* POSITIONING
+----------------------------------------------------------------------------------------*/
+header {
+	clear: both;
+	background-color: #555;
+}
+
+hgroup {
+	padding: 2em;
+}
+
+#container {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+#junk {
+	background-color: #555;
+	margin-top: -4em;
+	height: 4em;
+	clear: both;
+}
+
+#userinfo {
+	float: right;
+	margin-right: 5%;
+	margin-top: -2em;
+}
+
+#userinfo a {
+	text-decoration: underline;
+}
+
+#list, #note, #notebar {
+	float: left;
+	margin-left: 4em;
+	border: 1px solid #ccc;
+	overflow-y: scroll;
+	background-color: rgb(244, 244, 244);
+}
+
+#note, #notebar {
+	float: left;
+	padding: 2em;
+	width: 60%;
+	height: 35em;
+}
+
+#notehead {
+	border-bottom: 1px solid #aaa;
+}
+
+article {
+
+}
+
+#notebar {
+	height: 1em;
+	margin-top: 1em;
+}
+
+#list {
+	width: 16em;
+	max-height: 44em;
+	list-style: none;
+}
+
+#list li {
+	padding: 1em;
+	border-top: 1px solid #aaa;
+	clear: both;
+}
+
+#btn_new, #btn_del {
+	border: 1px solid #aaa;
+	float: left;
+	margin-top: -0.5em;
+}
+
+/* TYPOGRAPHY
+----------------------------------------------------------------------------------------*/
+
+h1 {
+	font-size: 4em;
+	text-shadow: 1px 1px #888, -1px -1px #666;
+	margin: 0;
+}
+
+h2 {
+	font-size: 2em;
+	text-shadow: 1px 1px #888;
+	margin: 0 0 0 1em;
+}
+
+#userinfo, #userinfo a {
+	color: #aaa;
+}
+
+#btn_new div, #btn_del div {
+	color: #333;
+	font-size: 2em;
+	text-decoration: none;
+	text-align: center;
+	padding: 0.4em 0.2em 0.4em 0.2em;
+	width: 1em;
+	margin-top: -0.2em;
+	float: left;
+}
+
+/* FUTHER STYLING 
+----------------------------------------------------------------------------------------*/
+
+#note {
+	box-shadow: inset 1em 1em rgb(244, 244, 244);
+}
+
+#note, #list, #notebar {
+	border-radius: 1em;
+	box-shadow: 0.7em 0.7em 1em #888, -0.1em -0em 1em #aaa;
+}
+
+/* JQUERY BOX
+----------------------------------------------------------------------------------------*/
+
+.box-overlay {
+	background: #000000;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	z-index: 11;
+}
+
+.box-container {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	z-index: 12;
+	margin: 20px 20px 20px 20px;
+}
+
+.box-element {
+	position: absolute;
+	background-color: #FFFFFF;
+	padding: 10px;
+	border: 5px solid #000000;
+	-moz-box-shadow: 0px 0px 10px #333333;
+	-webkit-box-shadow: 0px 0px 10px #333333;
+	box-shadow: 0px 0px 10px #333333;
+}
+
+.box-close-button {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	display: block;
+	width: 30px;
+	height: 16px;
+	padding: 5px 5px 5px 5px;
+	font-size: 10px;
+	color: #FFFFFF;
+	background-color: #000000;
+	cursor: pointer;
+	z-index: 1103;
+	text-transform: uppercase;
+	font-style: italic;
+	text-decoration: underline;
+}
+
+.box-close-button:hover {
+	text-decoration: none;
+}
+
+.box-container .controls .previous {
+	float: left;
+}
+
+.box-container .controls .next,
+.box-container .controls .submit {
+	float: right;
+	margin-right: 0px;
+}
+
+.box-container .controls .next,
+.box-container .controls .previous,
+.box-container .controls .submit {
+	margin-bottom: 14px;
+}
+
+.box-content p {
+	magrin-bottom: 10px;
+}
+
+.box-container ul li {
+	line-height: 2em;
+}
