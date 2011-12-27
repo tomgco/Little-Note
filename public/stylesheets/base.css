@@ -59,9 +59,35 @@ textarea.xxlarge {
 	width: 90%;
 	margin-top: 19px;
 	padding-bottom: 19px;
-	padding-top: 12px;
+	padding-top: 17px;
 }
 
 .push-left {
 	margin-left: 10px;
+}
+
+/*h1 {
+	-webkit-transition: border linear 0.2s,box-shadow linear 0.2s;
+	-moz-transition: border linear 0.2s,box-shadow linear 0.2s;
+	-ms-transition: border linear 0.2s,box-shadow linear 0.2s;
+	-o-transition: border linear 0.2s,box-shadow linear 0.2s;
+	transition: border linear 0.2s,box-shadow linear 0.2s;
+	-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+*/
+textarea {
+	resize: none;
+	display: block;
+	background: transparent;
+	border: none;
+	-webkit-appearance: textarea;
+	outline-style:none;
+}
+#preview {
+	height: 404px;
 }

@@ -1,4 +1,6 @@
-var dbox = require('../dbox-config');
+var dbox = require('../dbox-config'),
+	markdown = require( "markdown" ).markdown,
+	strftime = require("../lib/date_format").strftime;
 
 /*
  * GET
@@ -6,11 +8,32 @@ var dbox = require('../dbox-config');
 
 exports.index = function(req, res) {
 	if (typeof req.session.options === "undefined") {
-		res.redirect("/try-again");
+		res.render('index', {
+			title: 'Little Note',
+			date: formatDate(new Date()),
+			locals: {
+				styles: ['stylesheets/front-page.css'],
+				javascript: []
+			}
+		});
 	} else {
 		dbox.client.account(req.session.options, function(status, reply) {
-			console.log(reply);
-			res.render('application', { title: 'Little Note', account: reply });
+			res.render('application', {
+				title: 'Little Note',
+				account: reply,
+				date: formatDate(new Date()),
+				locals: {
+					styles: [
+					'/stylesheets/base.css'
+					],
+					javascript: [
+						'/js/script.js',
+						'/js/bootstrap-tabs.js',
+						'/js/jquery.hotkeys.js',
+						'/js/bootstrap-modal.js'
+					]
+				}
+			});
 		});
 	}
 };
@@ -41,8 +64,13 @@ exports.api.get = {};
 
 exports.api.get.file = function(req, res) {
 	var sess = req.session;
-	dbox.client.get(req.params.location, sess.options, function(status, reply) {
-		res.end(reply);
+	dbox.client.metadata(req.params.location, sess.options, function(status, reply){
+		var JSONreply = JSON.parse(reply);
+		dbox.client.get(req.params.location, sess.options, function(status, reply) {
+			JSONreply.fileContent = reply;
+			JSONreply.formattedDate = formatDate(new Date(JSONreply.modified));
+			handleResponse(res, status, JSONreply);
+		});
 	});
 };
 
@@ -80,6 +108,10 @@ exports.api.del = function(req, res) {
 	});
 };
 
+exports.api.preview = function(req, res) {
+	res.end(markdown.toHTML(req.body.html));
+};
+
 /*
  *	PUT
  */
@@ -99,4 +131,20 @@ var handleResponse = function(res, status, response /* Object */) {
 	} else {
 		res.end(JSON.stringify(response));
 	}
-}
+};
+
+var getOrdinalSuffix = function(number) {
+	var suffixLookup = ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"];
+
+	if (number % 100 >= 11 && number % 100 <= 13) {
+		return number + "th";
+	}
+
+	return number + suffixLookup[number % 10];
+};
+
+var formatDate = function(date) {
+	var number = strftime(date, "%d");
+	number = getOrdinalSuffix(number);
+	return number + strftime(date, " %B %Y");
+};

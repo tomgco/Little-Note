@@ -8,5 +8,7 @@
     , "jade": ">= 0.0.1"
     , "dbox": "0.1.0"
     , "gzippo": "< 0.2"
+    , "markdown": "< 0.4"
+    , "date-utils": "< 2.0"
   }
 }
