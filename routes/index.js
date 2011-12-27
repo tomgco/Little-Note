@@ -8,12 +8,15 @@ exports.index = function(req, res) {
 	if (typeof req.session.options === "undefined") {
 		res.redirect("/try-again");
 	} else {
-		res.render('index', { title: 'Notes App' });
+		dbox.client.account(req.session.options, function(status, reply) {
+			console.log(reply);
+			res.render('application', { title: 'Little Note', account: reply });
+		});
 	}
 };
 
 exports.tryagain = function(req, res) {
-	res.render('tryagain', { title: 'Notes App' });
+	res.render('tryagain', { title: 'Little Note' });
 };
 
 exports.login = function(req, res) {
