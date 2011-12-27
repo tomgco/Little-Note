@@ -45,7 +45,8 @@ function loadNote(e) {
 		success: function(data) {
 			$('#list ul li').removeClass('selected');
 			elem.addClass('selected');
-			$('#note article #notehead').html(fileToTitle(path)).next('textarea').val(data);
+			$('#notehead').html(fileToTitle(path));
+			$('textarea').val(data);
 		}
 	});
 }
@@ -62,7 +63,7 @@ function renameNote(path, to) {
 		},
 		success: function(data) {
 			$('#list ul li.selected').data('filename', to);
-			$('#list ul li.selected').text(fileToTitle(to));
+			$('#list ul li.selected').html($('<a href="#">').text(fileToTitle(to)));
 			filenameInEdit = to;
 		}
 	});
@@ -85,14 +86,14 @@ function saveNote() {
 	$.ajax({
 		url: siteLocation + "/api/put/" + path,
 		type: "POST",
-		data: { data: $('#note article #notehead').next('textarea').val() },
+		data: { data: $('textarea').val() },
 		statusCode: {
 			403: function() {
 				fail('Logged out: save before redirecting!!');
 			}
 		},
 		success: function(data) {
-			var to = titleToFile($('#note article #notehead').text());
+			var to = titleToFile($('#notehead').text());
 
 			if (checkForFileRename(path, to)) {
 				renameNote(path, to);
@@ -118,7 +119,7 @@ function newNote() {
 			},
 			success: function(data) {
 				$('#list ul li').removeClass('selected');
-				$('#list ul').append(makeNote(file));
+				$('#list ul').append('<a href="#">' + makeNote(file) + '</a>');
 				$(this).addClass('selected');
 				$.box.close();
 			}
@@ -138,7 +139,8 @@ function deleteNote() {
 		success: function(data) {
 			$('#list ul li.selected').remove();
 			$('#list ul li').removeClass('selected');
-			$('#note article #notehead').html('').next('textarea').val('');
+			$('#notehead').html('');
+			$('textarea').val('');
 		}
 	});
 }
@@ -149,7 +151,7 @@ function fail(message) {
 }
 
 function makeNote(path) {
-	return '<li data-filename="' + path + '">' + fileToTitle(path) + "</li>";
+	return '<li data-filename="' + path + '"><a href="#">' + fileToTitle(path) + "</a></li>";
 }
 
 function fileToTitle(file) {
