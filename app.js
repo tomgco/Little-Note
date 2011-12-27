@@ -20,9 +20,9 @@ app.configure(function(){
 	// @Todo Change secret key!
 	app.use(express.session({ secret: "nomnomnom" }));
 	// app.use(gzippo.staticGzip(__dirname + '/public'));
-	// app.use(gzippo.compress());
-	app.use(app.router);
 	app.use(gzippo.staticGzip(__dirname + '/public'));
+	app.use(gzippo.compress());
+	app.use(app.router);
 });
 
 app.configure('development', function(){
@@ -54,6 +54,8 @@ app.post('/api/put/:location', auth.authenticationCheck, routes.api.put);
 app.post('/api/move/:location', auth.authenticationCheck, routes.api.move);
 
 app.get('/api/del/:location', auth.authenticationCheck, routes.api.del);
+
+app.post('/api/preview', auth.authenticationCheck, routes.api.preview);
 
 // if (cluster.isMaster) {
 // 	// Fork workers.

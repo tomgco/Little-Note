@@ -1,0 +1,5 @@
+link(rel='stylesheet', href='http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css')
+link(rel='stylesheet', href='/stylesheets/common.css')
+- if (typeof locals.styles === 'object')
+	- for (i in locals.styles)
+		link(rel='stylesheet', href=locals.styles[i])

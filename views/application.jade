@@ -7,22 +7,26 @@
 	.content
 		.page-header
 			h1#notehead(contentEditable='true', tabindex='1') New Note&nbsp;
-			small 25th December 2011
+			small.date= date
 		.row
 			.span10
 				ul.tabs
 					li.left-pad
+					li
+						a(href='#edit')#editNote Edit
 					li.active
-						a(href='#') Edit
-					li
-						a(href='#') Preview
-					li
-						a(href='#') Share
-					li
-						a(href='#') Settings
-				textarea.xxlarge#noteContent(rows='25', tabindex='2')
+						a#tab_preview(href='#preview') Preview
+					//- li
+					//- 	a(href='#') Share
+					//- li
+					//- 	a(href='#') Settings
+				.tab-content
+					#edit
+						textarea.xxlarge#noteContent(rows='22', tabindex='2')
+					#preview.active
 				.well
-					a.btn.pull-right.danger.push-left#btn_del Delete
+					a.btn(data-controls-modal='newConfirm', data-backdrop='static') +
+					a.btn.pull-right.danger.push-left(data-controls-modal='deleteConfirm', data-backdrop='static') Delete
 					a.btn.pull-right.primary#btn_save Save
 			.span4
 				h3 Notes
@@ -30,8 +34,22 @@
 					ul.unstyled
 						//- li
 						//- 	a file 1
-	footer
-		p &copy; 56 Labs 2011
-			a Tom Gallacher
-			a Chris Garbe
-			a Kieran Patel
+	#deleteConfirm.modal.hide.fade
+		.modal-header
+			a(href='#').close &times;
+			h3 Warning
+		.modal-body
+			p Do you want to delete this note?
+		.modal-footer
+			a(href='#').btn.danger#btn_del Delete
+			a(href='#').btn.secondary#btn_close Cancel
+	#newConfirm.modal.hide.fade
+		.modal-header
+			a(href='#').close &times;
+			h3 New Note
+		.modal-body
+			p Before creating a new note do you wish to save?
+		.modal-footer
+			a(href='#').btn.primary#btn_saveAndNew Save &amp; Continue
+			a(href='#').btn.secondary#btn_new No
+	footer!=partial('partials/footer')
