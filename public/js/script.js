@@ -1,5 +1,5 @@
 var library,
-	filenameInEdit = false;
+	filenameInEdit = false,
 	siteLocation = "http://rockhopper.local:3000";
 
 function init() {
@@ -58,7 +58,7 @@ function renameNote(path, to) {
 		data: { to: to },
 		statusCode: {
 			403: function() {
-				fail('Logged out: save before redirecting!!');
+				toggleSaveBtn('failed');
 			}
 		},
 		success: function(data) {
@@ -82,6 +82,7 @@ function checkForFileRename(path, newTitle) {
 function saveNote() {
 	// need to default path to "New_Note.txt"
 	// and set the document on start.
+	toggleSaveBtn('save');
 	var path = $('#list ul li.selected').data('filename');
 	$.ajax({
 		url: siteLocation + "/api/put/" + path,
@@ -89,7 +90,8 @@ function saveNote() {
 		data: { data: $('textarea').val() },
 		statusCode: {
 			403: function() {
-				fail('Logged out: save before redirecting!!');
+				// fail('Logged out: save before redirecting!!');
+				toggleSaveBtn('failed');
 			}
 		},
 		success: function(data) {
@@ -98,6 +100,8 @@ function saveNote() {
 			if (checkForFileRename(path, to)) {
 				renameNote(path, to);
 			}
+
+			toggleSaveBtn();
 		}
 	});
 }
@@ -161,3 +165,27 @@ function fileToTitle(file) {
 function titleToFile(title) {
 	return title.replace(/ /g, "_") + ".txt";
 }
+
+var toggleSaveBtn = function(type) {
+	switch (type) {
+		case 'save':
+				$("#btn_save").switchClass("primary", "success", 250, function() {
+					$("#btn_save").text("Saving");
+				});
+			break;
+		case 'failed':
+				$("#btn_save").switchClass("success", "danger", 250, function() {
+					$("#btn_save").text("Failed");
+				});
+				setTimeout(function() {
+					$("#btn_save").switchClass("danger", "primary", 250, function() {
+						$("#btn_save").text("Save");
+					});
+				}, 3000);
+			break;
+		default:
+			$("#btn_save").switchClass("success", "primary", 250, function() {
+				$("#btn_save").text("Save");
+			});
+	}
+};
