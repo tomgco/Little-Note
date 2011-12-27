@@ -1,0 +1,13 @@
+!!!
+html
+	head
+		title= title
+		//link(rel='stylesheet', href='/style.css') using twitter bootstrap
+		link(rel='stylesheet', href='http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css')
+	body!= body
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+	script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js')
+	script(src='js/jquery.box.js')
+	script(src='js/script.js')
+	script
+		$(function(){init()});
