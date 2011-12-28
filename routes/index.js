@@ -45,7 +45,7 @@ exports.tryagain = function(req, res) {
 exports.login = function(req, res) {
 	dbox.client.request_token(function(status, reply){
 		req.session.options = reply;
-		res.redirect("https://www.dropbox.com/1/oauth/authorize?oauth_token=" + reply.oauth_token + "&oauth_callback=http://rockhopper.local:3000/auth");
+		res.redirect("https://www.dropbox.com/1/oauth/authorize?oauth_token=" + reply.oauth_token + "&oauth_callback=http://" + req.headers.host + "/auth");
 	});
 };
 

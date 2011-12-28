@@ -39,6 +39,7 @@
 ------------------------- */
 /* main docs page */
 .masthead {
+  border-bottom: 1px solid #999;
   background-color: #049cd9;
   background-repeat: no-repeat;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#004D9F), to(#049cd9));
@@ -50,4 +51,7 @@
 }
 .row {
 	margin-top: 20px;
+}
+.topbar a {
+  color: #333;
 }
