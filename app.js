@@ -10,7 +10,7 @@ var express = require('express'),
 	auth = require('./lib/authentication'),
 	stylus = require('stylus');
 
-var app = module.exports = express.createServer();
+app = module.exports = express.createServer();
 
 app.configure(function(){
 	app.set('views', __dirname + '/views');
@@ -23,16 +23,18 @@ app.configure(function(){
 	app.use(express.session({ secret: "nomnomnom" }));
 	// app.use(gzippo.staticGzip(__dirname + '/public'));
 	app.use(gzippo.staticGzip(__dirname + '/public'));
-	//app.use(gzippo.compress());
+	app.use(gzippo.compress());
 	app.use(app.router);
 });
 
 app.configure('development', function(){
 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+	app.enable('login');
 });
 
 app.configure('production', function(){
 	app.use(express.errorHandler());
+	app.disable('login');
 });
 
 // Routes
