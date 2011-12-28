@@ -38,6 +38,7 @@ var renderIndexLoggedIn = function(req, res) {
 				'/js/bootstrap-tabs.js',
 				'/js/jquery.hotkeys.js',
 				'/js/bootstrap-modal.js',
+				'/js/bootstrap-dropdown.js',
 				'/js/script.js',
 				'/js/base.js'
 			]
@@ -60,7 +61,9 @@ exports.login = function(req, res) {
 };
 
 var redirectForOauth = function(req, res) {
-	res.redirect("https://www.dropbox.com/1/oauth/authorize?oauth_token=" + req.session.options.oauth_token + "&oauth_callback=http://" + req.headers.host + "/auth");
+	res.redirect("https://www.dropbox.com/1/oauth/authorize?oauth_token=" +
+		req.session.options.oauth_token + "&oauth_callback=http://" +
+		req.headers.host + "/auth");
 };
 
 var getRequestToken = function(req, res, cb) {
