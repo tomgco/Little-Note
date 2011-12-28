@@ -10,11 +10,11 @@ function init() {
 	$('#deleteConfirm').modal({
 		keyboard: true,
 		backdrop: true
-	})
+	});
 	$('#newConfirm').modal({
 		keyboard: true,
 		backdrop: true
-	})
+	});
 	$('#btn_new').click(newNote);
 	$('#btn_saveAndNew').click(function(e) {
 		saveNote(e, function() {
@@ -301,3 +301,5 @@ var setUpKeyboardShortcuts = function() {
 		e.preventDefault();
 	});
 };
+
+$(function(){init();});
