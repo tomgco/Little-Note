@@ -7,7 +7,8 @@ var express = require('express'),
 	routes = require('./routes'),
 	gzippo = require('gzippo'),
 	// cluster = require('cluster'),
-	auth = require('./lib/authentication');
+	auth = require('./lib/authentication'),
+	stylus = require('stylus');
 
 var app = module.exports = express.createServer();
 
@@ -16,6 +17,7 @@ app.configure(function(){
 	app.set('view engine', 'jade');
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
+	app.use(stylus.middleware({ src: __dirname + '/public/', compress: true }));
 	app.use(express.cookieParser());
 	// @Todo Change secret key!
 	app.use(express.session({ secret: "nomnomnom" }));

@@ -12,8 +12,8 @@ exports.index = function(req, res) {
 			title: 'Little Note',
 			date: formatDate(new Date()),
 			locals: {
-				styles: ['stylesheets/front-page.css'],
-				javascript: []
+				styles: ['/stylesheets/front-page.css'],
+				javascript: ['/js/base.js']
 			}
 		});
 	} else {
@@ -30,7 +30,8 @@ exports.index = function(req, res) {
 						'/js/bootstrap-tabs.js',
 						'/js/jquery.hotkeys.js',
 						'/js/bootstrap-modal.js',
-						'/js/script.js'
+						'/js/script.js',
+						'/js/base.js'
 					]
 				}
 			});
