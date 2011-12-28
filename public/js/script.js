@@ -79,7 +79,6 @@ function loadNotes() {
 			if ($('#list ul li').length <= 0) {
 				firstRun();
 			} else {
-				bNewNote = false;
 				$('#list ul li').first().trigger('click');
 			}
 		}
@@ -87,6 +86,7 @@ function loadNotes() {
 }
 
 function loadNote(e) {
+	bNewNote = false;
 	var elem = $(this);
 	path = elem.data('filename');
 	filenameInEdit = path;
