@@ -5,7 +5,9 @@ var library,
 	path = defaultNewPath,
 	bNewNote = true;
 
-function init() {
+$(function(){init();});
+
+var init = function() {
 	loadNotes();
 	$('#deleteConfirm').modal({
 		keyboard: true,
@@ -38,9 +40,9 @@ function init() {
 	});
     $('.tabs').tabs();
     setUpKeyboardShortcuts();
-}
+};
 
-function getPreview() {
+var getPreview = function() {
 	$.ajax({
 		url: siteLocation + "/api/preview",
 		type: "POST",
@@ -56,9 +58,9 @@ function getPreview() {
 			$('#preview').html(data);
 		}
 	});
-}
+};
 
-function loadNotes() {
+var loadNotes = function() {
 	library = [];
 	$.ajax({
 		url: siteLocation + "/api/list/all",
@@ -83,9 +85,9 @@ function loadNotes() {
 			}
 		}
 	});
-}
+};
 
-function loadNote(e) {
+var loadNote = function(e) {
 	bNewNote = false;
 	var elem = $(this);
 	path = elem.data('filename');
@@ -108,9 +110,9 @@ function loadNote(e) {
 			$('#tab_preview').trigger('click');
 		}
 	});
-}
+};
 
-function renameNote(path, to) {
+var renameNote = function(path, to) {
 	$.ajax({
 		url: siteLocation + "/api/move/" + path,
 		type: "POST",
@@ -127,7 +129,7 @@ function renameNote(path, to) {
 			path = to;
 		}
 	});
-}
+};
 
 /**
 *
@@ -135,11 +137,11 @@ function renameNote(path, to) {
 *
 */
 
-function checkForFileRename(path, newTitle) {
+var checkForFileRename = function(path, newTitle) {
 	return (path !== newTitle) ? true : false;
-}
+};
 
-function saveNote(e, cb) {
+var saveNote = function(e, cb) {
 	// need to default path to "New_Note.txt"
 	// and set the document on start.
 	toggleSaveBtn('save');
@@ -175,10 +177,10 @@ function saveNote(e, cb) {
 			}
 		}
 	});
-}
+};
 
 // Instead of opening in a dialog possibly clear the form and have a hint.
-function newNote(e) {
+var newNote = function(e) {
 	// $.box.show({content: $('<form id="frm_new_note"><label for="note_title">New Note Title:</label><input type="text" name="note_title" id="note_title" /><input type="submit" value="create"/></form>')});
 	path = defaultNewPath;
 	bNewNote = true;
@@ -188,9 +190,9 @@ function newNote(e) {
 	$('small.date').text('');
 	$('#newConfirm').modal('hide');
 	e.preventDefault();
-}
+};
 
-function deleteNote(e) {
+var deleteNote = function(e) {
 	// var path = $('#list ul li.selected').data('filename');
 	$.ajax({
 		url: siteLocation + "/api/del/" + path,
@@ -214,24 +216,24 @@ function deleteNote(e) {
 		}
 	});
 	e.preventDefault();
-}
+};
 
-function fail(message) {
+var fail = function(message) {
 	alert('toms fault: ' + message);
 	window.location = siteLocation + "/try-again";
-}
+};
 
-function makeNote(path) {
+var makeNote = function(path) {
 	return '<li data-filename="' + path + '"><a href="#">' + fileToTitle(path) + "</a></li>";
-}
+};
 
-function fileToTitle(file) {
+var fileToTitle = function(file) {
 	return file.replace(/_/g, " ").replace(".txt", "");
-}
+};
 
-function titleToFile(title) {
+var titleToFile = function(title) {
 	return title.replace(/ /g, "_") + ".txt";
-}
+};
 
 var toggleSaveBtn = function(type) {
 	switch (type) {
@@ -301,5 +303,3 @@ var setUpKeyboardShortcuts = function() {
 		e.preventDefault();
 	});
 };
-
-$(function(){init();});
