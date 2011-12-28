@@ -21,7 +21,7 @@ app.configure(function(){
 	app.use(express.session({ secret: "nomnomnom" }));
 	// app.use(gzippo.staticGzip(__dirname + '/public'));
 	app.use(gzippo.staticGzip(__dirname + '/public'));
-	app.use(gzippo.compress());
+	//app.use(gzippo.compress());
 	app.use(app.router);
 });
 
@@ -71,4 +71,4 @@ app.post('/api/preview', auth.authenticationCheck, routes.api.preview);
 	app.listen(3000);
 // }
 
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+console.log("Starting Little Note server listening on port %d in %s mode", app.address().port, app.settings.env);
