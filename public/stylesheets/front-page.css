@@ -1,8 +1,3 @@
-.promo {
-	background: #0A72C7 url("../images/promo-bg.png") top left repeat;
-	padding: 40px 0;
-}
-
 /* Jumbotrons
 -------------------------------------------------- */
 .jumbotron {
@@ -10,7 +5,7 @@
   padding-top: 40px;
 }
 .jumbotron .inner {
-  background: transparent url(../img/grid-18px.png) top center;
+  background: transparent url(/images/texture.png) top center;
   padding: 45px 0;
   -webkit-box-shadow: inset 0 10px 30px rgba(0,0,0,.3);
      -moz-box-shadow: inset 0 10px 30px rgba(0,0,0,.3);
@@ -36,7 +31,7 @@
   line-height: 27px;
 }
 .jumbotron p a {
-  color: #fff;
+  color: ##404040;
   font-weight: bold;
 }
 

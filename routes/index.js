@@ -27,10 +27,10 @@ exports.index = function(req, res) {
 					'/stylesheets/base.css'
 					],
 					javascript: [
-						'/js/script.js',
 						'/js/bootstrap-tabs.js',
 						'/js/jquery.hotkeys.js',
-						'/js/bootstrap-modal.js'
+						'/js/bootstrap-modal.js',
+						'/js/script.js'
 					]
 				}
 			});
