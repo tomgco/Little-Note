@@ -1,6 +1,6 @@
 var library,
 	filenameInEdit = false,
-	siteLocation = "http://rockhopper.local:3000",
+	siteLocation = "",
 	defaultNewPath = "New_Note.txt",
 	path = defaultNewPath,
 	bNewNote = true;

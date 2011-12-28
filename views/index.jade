@@ -2,7 +2,8 @@
 	.fill
 		.container
 			a(href='#').brand= title
-			p.pull-right Logged in as <a href="#"></a>
+			form.pull-right
+				a(href='/login').btn Sign in
 //- .promo
 //- 	.container
 //- 		.promo-info
@@ -23,7 +24,7 @@ header.jumbotron.masthead
 			p You can keep notes, lists and todo items and you don't even need an account.
 			p Little Note is built using the Dropbox API, all you need is a Dropbox account and you are off.
 			p
-				a.btn(href='/login') Get Started &raquo;
+				a.btn(href='#') Get Started &raquo;
 
 .container
 	.row
