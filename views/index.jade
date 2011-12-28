@@ -3,7 +3,8 @@
 		.container
 			a(href='#').brand= title
 			form.pull-right
-				a(href='/login').btn Sign in
+				- if (loginEnabled)
+					a(href='/login').btn Sign in
 //- .promo
 //- 	.container
 //- 		.promo-info

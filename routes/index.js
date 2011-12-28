@@ -11,6 +11,7 @@ exports.index = function(req, res) {
 		res.render('index', {
 			title: 'Little Note',
 			date: formatDate(new Date()),
+			loginEnabled: app.settings.login,
 			locals: {
 				styles: ['/stylesheets/front-page.css'],
 				javascript: ['/js/base.js']
