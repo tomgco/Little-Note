@@ -68,7 +68,7 @@ app.post('/api/preview', auth.authenticationCheck, routes.api.preview);
 // 		console.log('worker ' + worker.pid + ' died');
 // 	});
 // } else {
-	app.listen(3000);
+	app.listen(process.env.PORT || 3000);
 // }
 
 console.log("Starting Little Note server listening on port %d in %s mode", app.address().port, app.settings.env);
