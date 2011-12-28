@@ -11,5 +11,7 @@
     , "markdown": "< 0.4"
     , "date-utils": "< 2.0"
     , "stylus": "< 0.20"
+    , "connect-redis": "< 2.0"
+    , "colors": "< 1.0"
   }
 }

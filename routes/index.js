@@ -7,37 +7,42 @@ var dbox = require('../dbox-config'),
  */
 
 exports.index = function(req, res) {
-	if (typeof req.session.options === "undefined") {
-		res.render('index', {
-			title: 'Little Note',
-			date: formatDate(new Date()),
-			loginEnabled: app.settings.login,
-			locals: {
-				styles: ['/stylesheets/front-page.css'],
-				javascript: ['/js/base.js']
-			}
-		});
+	if (typeof req.session.options === 'undefined') {
+		renderIndex(req, res);
 	} else {
-		dbox.client.account(req.session.options, function(status, reply) {
-			res.render('application', {
-				title: 'Little Note',
-				account: reply,
-				date: formatDate(new Date()),
-				locals: {
-					styles: [
-					'/stylesheets/base.css'
-					],
-					javascript: [
-						'/js/bootstrap-tabs.js',
-						'/js/jquery.hotkeys.js',
-						'/js/bootstrap-modal.js',
-						'/js/script.js',
-						'/js/base.js'
-					]
-				}
-			});
-		});
+		renderIndexLoggedIn(req, res);
 	}
+};
+
+var renderIndex = function(req, res) {
+	res.render('index', {
+		title: 'Little Note',
+		date: formatDate(new Date()),
+		loginEnabled: app.settings.login,
+		locals: {
+			styles: ['/stylesheets/front-page.css'],
+			javascript: ['/js/base.js','/js/preloader.js']
+		}
+	});
+};
+
+var renderIndexLoggedIn = function(req, res) {
+	res.render('application', {
+		title: 'Little Note',
+		date: formatDate(new Date()),
+		locals: {
+			styles: [
+			'/stylesheets/base.css'
+			],
+			javascript: [
+				'/js/bootstrap-tabs.js',
+				'/js/jquery.hotkeys.js',
+				'/js/bootstrap-modal.js',
+				'/js/script.js',
+				'/js/base.js'
+			]
+		}
+	});
 };
 
 exports.tryagain = function(req, res) {
@@ -45,24 +50,55 @@ exports.tryagain = function(req, res) {
 };
 
 exports.login = function(req, res) {
+	if (typeof req.session.options === 'undefined') {
+		getRequestToken(req, req, function() {
+			redirectForOauth(req, res);
+		});
+	} else {
+		redirectForOauth(req, res);
+	}
+};
+
+var redirectForOauth = function(req, res) {
+	res.redirect("https://www.dropbox.com/1/oauth/authorize?oauth_token=" + req.session.options.oauth_token + "&oauth_callback=http://" + req.headers.host + "/auth");
+};
+
+var getRequestToken = function(req, res, cb) {
 	dbox.client.request_token(function(status, reply){
 		req.session.options = reply;
-		res.redirect("https://www.dropbox.com/1/oauth/authorize?oauth_token=" + reply.oauth_token + "&oauth_callback=http://" + req.headers.host + "/auth");
+		if (typeof cb === 'function') cb(status);
 	});
+};
+
+exports.preEmptiveLogin = function(req, res) {
+	getRequestToken(req, req, function(status) {
+		res.statusCode = status;
+		res.end();
+	});
+};
+
+exports.logout = function(req, res) {
+	req.session.destroy();
+	res.redirect('/');
 };
 
 exports.auth = function(req, res) {
 	dbox.client.access_token(req.session.options, function(status, reply){
 		req.session.options = reply;
-		dbox.client.account(reply, function(status, reply) {
-			res.redirect("/");
-		});
+		res.redirect('/');
 	});
 };
 
 exports.api = {};
 
 exports.api.get = {};
+
+exports.api.get.user = function(req, res) {
+	dbox.client.account(req.session.options, function(status, reply) {
+		req.session.user = reply;
+		handleResponse(res, status, reply);
+	});
+};
 
 exports.api.get.file = function(req, res) {
 	var sess = req.session;

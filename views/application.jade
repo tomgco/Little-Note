@@ -2,7 +2,10 @@
 	.fill
 		.container
 			a(href='#').brand= title
-			p.pull-right Logged in as <a href="#">#{account.display_name}</a>
+			p.pull-right
+				a(href='#') Account
+				| | 
+				a(href='/logout')#logout Logout
 .container
 	.content
 		.page-header

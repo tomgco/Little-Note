@@ -8,7 +8,9 @@ var express = require('express'),
 	gzippo = require('gzippo'),
 	// cluster = require('cluster'),
 	auth = require('./lib/authentication'),
-	stylus = require('stylus');
+	stylus = require('stylus'),
+	RedisStore = require('connect-redis')(express),
+	colors = require('colors');
 
 app = module.exports = express.createServer();
 
@@ -20,7 +22,7 @@ app.configure(function(){
 	app.use(stylus.middleware({ src: __dirname + '/public/', compress: true }));
 	app.use(express.cookieParser());
 	// @Todo Change secret key!
-	app.use(express.session({ secret: "nomnomnom" }));
+	app.use(express.session({ secret: "nomnomnom", store: new RedisStore() }));
 	// app.use(gzippo.staticGzip(__dirname + '/public'));
 	app.use(gzippo.staticGzip(__dirname + '/public'));
 	app.use(gzippo.compress());
@@ -29,6 +31,7 @@ app.configure(function(){
 
 app.configure('development', function(){
 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+	console.log('WARN:'.red + ' This package depends on a local Redis store'.yellow);
 	app.enable('login');
 });
 
@@ -45,7 +48,13 @@ app.get('/try-again', routes.tryagain);
 
 app.get('/login', routes.login);
 
+app.get('/logout', routes.logout);
+
 app.get('/auth', routes.auth);
+
+app.get('/pre-emptive-login', routes.preEmptiveLogin);
+
+app.get('/api/get/user', auth.authenticationCheck, routes.api.get.user);
 
 app.get('/api/get/:location', auth.authenticationCheck, routes.api.get.file);
 
