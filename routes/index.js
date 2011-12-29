@@ -7,7 +7,7 @@ var dbox = require('../dbox-config'),
  */
 
 exports.index = function(req, res) {
-	if (typeof req.session.options === 'undefined') {
+	if (typeof req.session.options === 'undefined' || typeof req.session.options.uid === 'undefined') {
 		renderIndex(req, res);
 	} else {
 		renderIndexLoggedIn(req, res);
