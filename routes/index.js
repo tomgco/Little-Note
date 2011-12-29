@@ -111,6 +111,7 @@ exports.api.get.user = function(req, res) {
 	dbox.client.account(req.session.options, function(status, reply) {
 		req.session.user = reply;
 		handleResponse(res, status, reply);
+		console.log('[' + new Date().toUTCString().blue + '] ' + 'User Logged: '.yellow + ' ' + reply.email.red);
 	});
 };
 
