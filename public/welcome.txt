@@ -13,5 +13,5 @@ You can create new notes by either clicking the new button below or by using the
 Click save and then you are ready to get going.
 
 #### Keyboard Shortcuts
-- `cmd + s` or `ctrl + s` to save you note
+- `cmd + s` or `ctrl + s` to save a note
 - `cmd + shift + n` or `ctrl + shift + n` to create a new note
