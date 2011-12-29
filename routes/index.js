@@ -61,7 +61,7 @@ exports.tryagain = function(req, res) {
 };
 
 exports.login = function(req, res) {
-	if (typeof req.session.options === 'undefined') {
+	if (typeof req.session.options === 'undefined' || req.session.req_time >= +Date.now()) {
 		getRequestToken(req, req, function() {
 			redirectForOauth(req, res);
 		});
@@ -79,6 +79,7 @@ var redirectForOauth = function(req, res) {
 var getRequestToken = function(req, res, cb) {
 	dbox.client.request_token(function(status, reply){
 		req.session.options = reply;
+		req.session.req_time =  +Date.now() + 120;
 		if (typeof cb === 'function') cb(status);
 	});
 };
