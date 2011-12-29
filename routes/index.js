@@ -14,10 +14,20 @@ exports.index = function(req, res) {
 	}
 };
 
+exports.about = function(req, res) {
+	res.render('about', {
+		title: 'Little Note',
+		loginEnabled: app.settings.login,
+		locals: {
+			styles: ['/stylesheets/front-page.css'],
+			javascript: ['/js/base.js','/js/preloader.js']
+		}
+	});
+};
+
 var renderIndex = function(req, res) {
 	res.render('index', {
 		title: 'Little Note',
-		date: formatDate(new Date()),
 		loginEnabled: app.settings.login,
 		locals: {
 			styles: ['/stylesheets/front-page.css'],

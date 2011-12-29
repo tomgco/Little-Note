@@ -44,6 +44,8 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
+app.get('/about', routes.about);
+
 app.get('/try-again', routes.tryagain);
 
 app.get('/login', routes.login);
