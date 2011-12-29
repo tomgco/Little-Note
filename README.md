@@ -16,3 +16,6 @@ Little Note is a web application which uses dropbox as it's storage component. T
     redis-server /usr/local/etc/redis.conf &
     node app.js &
     open http://localhost:3000
+    
+I also recomend installing nodemon:
+    npm install -g nodemon
