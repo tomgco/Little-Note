@@ -1,0 +1,17 @@
+##Welcome to Little Note.
+
+To start straight away click on this text or the Edit tab.
+
+With Little Note you can create lists, todo's and reminders.
+
+Little Note uses [markdown](http://daringfireball.net/projects/markdown/syntax) to format your text, at a later date other formats may be added.
+
+### Getting Started
+
+You can create new notes by either clicking the new button below or by using the keyboard shortcuts. You can then rename by clicking the title and modify the note using the same method.
+
+Click save and then you are ready to get going.
+
+#### Keyboard Shortcuts
+- `cmd + s` or `ctrl + s` to save you note
+- `cmd + shift + n` or `ctrl + shift + n` to create a new note

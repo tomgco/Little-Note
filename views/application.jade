@@ -2,6 +2,11 @@
 	.fill
 		.container
 			a(href='#').brand= title
+				span &nbsp;
+				span.label.notice Beta
+			ul.nav
+				li
+					a(href='mailto:bug@littlenoteapp.com') Send Bug Report
 			ul.nav.secondary-nav
 				li.dropdown(data-dropdown='dropdown')
 					a(href="#").dropdown-toggle Account
@@ -11,6 +16,8 @@
 						li.divider
 						li
 							a(href="#") Help
+						li
+							a(href="#") Keyboard Shortcuts
 						li.divider
 						li
 							a(href="/logout") Logout

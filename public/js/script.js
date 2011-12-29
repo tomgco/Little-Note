@@ -66,6 +66,8 @@ var getPreview = function() {
 			}
 		},
 		success: function(data) {
+			data = $(data);
+			data.find('a').attr('target', '_blank');
 			$('#preview').html(data);
 		}
 	});
@@ -275,9 +277,11 @@ var firstRun = function() {
 	bNewNote = true;
 	filenameInEdit = path;
 	$('#notehead').html(fileToTitle(path));
-	$('textarea').val('Welcome to Little Note.\n\nTo start straight away click on me.\n\nLittle Note allows you to create lists, todo and reminders.');
-	getPreview();
-	saveNote();
+	$.get('/welcome.txt', function(data) {
+		$('textarea').val(data);
+		getPreview();
+		saveNote();
+	});
 };
 
 var setUpKeyboardShortcuts = function() {
