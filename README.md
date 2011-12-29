@@ -14,5 +14,5 @@ Little Note is a web application which uses dropbox as it's storage component. T
     npm install
     brew install redis
     redis-server /usr/local/etc/redis.conf &
-    node app.js
+    node app.js &
     open http://localhost:3000
