@@ -1,0 +1,40 @@
+.topbar
+	.fill
+		.container
+			a(href='#').brand= title
+			form.pull-right
+				- if (loginEnabled)
+					a(href='/login').btn Sign in
+
+header.jumbotron.masthead
+	.inner
+		.container
+			h1 Who is Little Note?
+			p.lead Late Night JavaScript Pirates
+			p Sailing the seas at night and attacking the web with might.
+			p Or we are a group of final year computing students with way to much time on our hands.
+
+.container
+	.row
+		.span-one-third
+			a.img
+				img.thumbnail(src="/images/tom.png")
+			h2.title Tom Gallacher
+			p NodeJS privateer, Siri abuser and way too Linux-y to own a Mac, let alone several. Often seen happily writing code without any knowledge of his surroundings. Has never heard of a GUI.
+			//- p
+			//- 	a.btn(href='#') View details &raquo;
+		.span-one-third
+			a.img
+				img.thumbnail(src="/images/chris.png")
+			h2.title Chris Garbe
+			p Often found listening to hideous amounts of DubStep and Electro House, generally at hideous volumes. Can't play halo, won't play halo. Speciality: unknown.
+			//- p
+			//- 	a.btn(href='#') View details &raquo;
+		.span-one-third
+			a.img
+				img.thumbnail(src="/images/kp.png")
+			h2.title Kieran Patel
+			p A stickler for neat code and vanilla lattes. Specialises in server-side performance and streamlining along with an undying love for TextMate.
+			//- p
+			//- 	a.btn(href='#') View details &raquo;
+	footer!=partial('partials/footer')
