@@ -40,6 +40,17 @@ var init = function() {
 	});
     $('.tabs').tabs();
     setUpKeyboardShortcuts();
+    displayUsername();
+};
+
+var displayUsername = function() {
+	$.ajax({
+		url: siteLocation + "/api/get/user",
+		dataType: 'json',
+		success: function(data) {
+			$('#user-name').text(data.display_name);
+		}
+	});
 };
 
 var getPreview = function() {
