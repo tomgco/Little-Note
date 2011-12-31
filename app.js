@@ -37,7 +37,7 @@ app.configure('development', function(){
 
 app.configure('production', function(){
 	app.use(express.errorHandler());
-	app.disable('login');
+	app.enable('login');
 });
 
 // Routes
