@@ -26,11 +26,6 @@ window.Notes = new NoteList;
 
 window.NoteView = Backbone.View.extend({
 
-	tagName: 'li',
-
-	// Cache the template function for a single note.
-	template: _.template($('#item-template').html()),
-
 	events: {
 		'click .save': 'saveNote',
 		'click .delete': 'deleteNote',
@@ -44,7 +39,7 @@ window.NoteView = Backbone.View.extend({
 
 	// Re-render the contents of the note.
 	render: function() {
-		$(this.el).html(this.template(this.model.toJSON()));
+		// $(this.el).html(this.template(this.model.toJSON()));
 		this.setTitle();
 		this.setDate();
 		this.setBody();
