@@ -126,13 +126,8 @@ window.NoteListView = Backbone.View.extend({
 
 window.AppView = Backbone.View.extend({
 
-	// Instead of generating a new element, bind to the existing skeleton of
-	// the App already present in the HTML.
 	el: $("#little-note-app"),
 
-	// At initialization we bind to the relevant events on the `Todos`
-	// collection, when items are added or changed. Kick things off by
-	// loading any preexisting todos that might be saved in *localStorage*.
 	initialize: function() {
 		this.input = this.$("#new-note");
 
