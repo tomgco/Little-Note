@@ -34,10 +34,6 @@
 						a(href='#edit')#editNote Edit
 					li.active
 						a#tab_preview(href='#preview') Preview
-					//- li
-					//- 	a(href='#') Share
-					//- li
-					//- 	a(href='#') Settings
 				.tab-content
 					#edit
 						textarea.xxlarge#noteContent(rows='22', tabindex='2')
@@ -71,3 +67,5 @@
 			a(href='#').btn.primary#btn_saveAndNew Save &amp; Continue
 			a(href='#').btn.secondary#btn_new No
 	footer!=partial('partials/footer')
+
+!=partial('templates/item-list-template')

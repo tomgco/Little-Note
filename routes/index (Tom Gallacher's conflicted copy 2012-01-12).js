@@ -1,5 +1,7 @@
-var markdown = require( "markdown" ).markdown,
+var dbox = require('../dbox-config'),
+	markdown = require( "markdown" ).markdown,
 	strftime = require("../lib/date_format").strftime;
+
 /*
  * GET
  */
@@ -43,12 +45,16 @@ var renderIndexLoggedIn = function(req, res) {
 			'/stylesheets/base.css'
 			],
 			javascript: [
-				'/js/bootstrap-tabs.js',
-				'/js/jquery.hotkeys.js',
-				'/js/bootstrap-modal.js',
-				'/js/bootstrap-dropdown.js',
-				'/js/script.js',
-				'/js/base.js'
+				// '/js/bootstrap-tabs.js',
+				// '/js/jquery.hotkeys.js',
+				// '/js/bootstrap-modal.js',
+				// '/js/bootstrap-dropdown.js',
+				// '/js/script.js',
+				// '/js/base.js'
+				'/js/base/underscore-min.js',
+				'/js/base/backbone-min.js',
+				'/js/base/backbone-localstorage.js',
+				'/js/note.js'
 			]
 		}
 	});
@@ -69,11 +75,13 @@ exports.login = function(req, res) {
 };
 
 var redirectForOauth = function(req, res) {
-	res.redirect(req.dropbox.session.getAuthorizeUrl('http://' + req.headers.host + '/auth'));
+	res.redirect("https://www.dropbox.com/1/oauth/authorize?oauth_token=" +
+		req.session.options.oauth_token + "&oauth_callback=http://" +
+		req.headers.host + "/auth");
 };
 
 var getRequestToken = function(req, res, cb) {
-	req.dropbox.session.getRequestToken(function(status, reply) {
+	dbox.client.request_token(function(status, reply){
 		req.session.options = reply;
 		req.session.req_time =  +Date.now() + 120;
 		if (typeof cb === 'function') cb(status);
@@ -93,9 +101,8 @@ exports.logout = function(req, res) {
 };
 
 exports.auth = function(req, res) {
-	req.dropbox.session.getAccessToken(req.session.options, function(status, reply){
+	dbox.client.access_token(req.session.options, function(status, reply){
 		req.session.options = reply;
-		req.dropbox.client = dbox.client(req.session.dropbox);
 		res.redirect('/');
 	});
 };
@@ -105,8 +112,7 @@ exports.api = {};
 exports.api.get = {};
 
 exports.api.get.user = function(req, res) {
-	// console.log(dbox.client);
-	req.dropbox.client.accountInfo(req.session.options, function(status, reply) {
+	dbox.client.account(req.session.options, function(status, reply) {
 		req.session.user = reply;
 		handleResponse(res, status, reply);
 		console.log('[' + new Date().toUTCString().blue + '] ' + 'User Logged: '.yellow + ' ' + reply.email.red);

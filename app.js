@@ -10,7 +10,8 @@ var express = require('express'),
 	auth = require('./lib/authentication'),
 	stylus = require('stylus'),
 	RedisStore = require('connect-redis')(express),
-	colors = require('colors');
+	colors = require('colors'),
+	cluster = require('cluster');
 
 app = module.exports = express.createServer();
 
@@ -33,11 +34,13 @@ app.configure('development', function(){
 	// app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	console.log('WARN:'.red + ' This package depends on a local Redis store'.yellow);
 	app.enable('login');
+	app.enable('cluster');
 });
 
 app.configure('production', function(){
 	app.use(express.errorHandler());
 	app.enable('login');
+	app.enable('cluster');
 });
 
 // Routes
@@ -48,42 +51,46 @@ app.get('/about', routes.about);
 
 app.get('/try-again', routes.tryagain);
 
-app.get('/login', routes.login);
-
 app.get('/logout', routes.logout);
 
-app.get('/auth', routes.auth);
+/** DROPBOX AUTH **/
 
-app.get('/pre-emptive-login', routes.preEmptiveLogin);
+app.get('/pre-emptive-login', routes.preEmptiveLogin, auth.dropbox);
 
-app.get('/api/get/user', auth.authenticationCheck, routes.api.get.user);
+app.get('/login', routes.login, auth.dropbox);
 
-app.get('/api/get/:location', auth.authenticationCheck, routes.api.get.file);
+app.get('/auth', routes.auth, auth.dropbox);
 
-app.get('/api/list/all', auth.authenticationCheck, routes.api.list.all);
+/** API ROUTES **/
 
-app.get('/api/list/:location', auth.authenticationCheck, routes.api.list);
+app.get('/api/get/user', auth.authenticationCheck, auth.dropbox, routes.api.get.user);
 
-app.post('/api/put/:location', auth.authenticationCheck, routes.api.put);
+app.get('/api/get/:location', auth.authenticationCheck, auth.dropbox, routes.api.get.file);
 
-app.post('/api/move/:location', auth.authenticationCheck, routes.api.move);
+app.get('/api/list/all', auth.authenticationCheck, auth.dropbox, routes.api.list.all);
 
-app.get('/api/del/:location', auth.authenticationCheck, routes.api.del);
+app.get('/api/list/:location', auth.authenticationCheck, auth.dropbox, routes.api.list);
 
-app.post('/api/preview', auth.authenticationCheck, routes.api.preview);
+app.post('/api/put/:location', auth.authenticationCheck, auth.dropbox, routes.api.put);
 
-// if (cluster.isMaster) {
-// 	// Fork workers.
-// 	for (var i = 0; i < require('os').cpus().length; i++) {
-// 		var worker = cluster.fork();
-// 		console.log('worker ' + worker.pid + ' started at ' + new Date());
-// 	}
+app.post('/api/move/:location', auth.authenticationCheck, auth.dropbox, routes.api.move);
 
-// 	cluster.on('death', function(worker) {
-// 		console.log('worker ' + worker.pid + ' died');
-// 	});
-// } else {
+app.get('/api/del/:location', auth.authenticationCheck, auth.dropbox, routes.api.del);
+
+app.post('/api/preview', auth.authenticationCheck, auth.dropbox, routes.api.preview);
+
+if (cluster.isMaster) {
+	// Fork workers.
+	for (var i = 0; i < require('os').cpus().length; i++) {
+		var worker = cluster.fork();
+		console.log('worker ' + worker.pid + ' started at ' + new Date());
+	}
+
+	cluster.on('death', function(worker) {
+		console.log('worker ' + worker.pid + ' died');
+	});
+} else {
 	app.listen(process.env.PORT || 3000);
-// }
+}
 
 console.log("Starting Little Note server listening on port %d in %s mode", app.address().port, app.settings.env);
