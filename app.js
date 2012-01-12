@@ -30,7 +30,7 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+	// app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	console.log('WARN:'.red + ' This package depends on a local Redis store'.yellow);
 	app.enable('login');
 });

@@ -77,7 +77,9 @@ var redirectForOauth = function(req, res) {
 };
 
 var getRequestToken = function(req, res, cb) {
-	dbox.client.request_token(function(status, reply){
+	dbox.session.getRequestToken(function(status, reply) {
+		console.log(reply);
+		console.log(status);
 		req.session.options = reply;
 		req.session.req_time =  +Date.now() + 120;
 		if (typeof cb === 'function') cb(status);
