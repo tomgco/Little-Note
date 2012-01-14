@@ -34,13 +34,13 @@ app.configure('development', function(){
 	// app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	console.log('WARN:'.red + ' This package depends on a local Redis store'.yellow);
 	app.enable('login');
-	app.enable('cluster');
+	// app.disable('cluster');
 });
 
 app.configure('production', function(){
 	app.use(express.errorHandler());
 	app.enable('login');
-	app.enable('cluster');
+	// app.enable('cluster');
 });
 
 // Routes
@@ -49,17 +49,17 @@ app.get('/', routes.index);
 
 app.get('/about', routes.about);
 
-app.get('/try-again', routes.tryagain);
+// app.get('/try-again', routes.tryagain);
 
 app.get('/logout', routes.logout);
 
 /** DROPBOX AUTH **/
 
-app.get('/pre-emptive-login', routes.preEmptiveLogin, auth.dropbox);
+app.get('/pre-emptive-login', auth.dropbox, routes.preEmptiveLogin);
 
-app.get('/login', routes.login, auth.dropbox);
+app.get('/login', auth.dropbox, routes.login);
 
-app.get('/auth', routes.auth, auth.dropbox);
+app.get('/auth', auth.dropbox, routes.auth);
 
 /** API ROUTES **/
 
@@ -79,18 +79,18 @@ app.get('/api/del/:location', auth.authenticationCheck, auth.dropbox, routes.api
 
 app.post('/api/preview', auth.authenticationCheck, auth.dropbox, routes.api.preview);
 
-if (cluster.isMaster) {
-	// Fork workers.
-	for (var i = 0; i < require('os').cpus().length; i++) {
-		var worker = cluster.fork();
-		console.log('worker ' + worker.pid + ' started at ' + new Date());
-	}
+// if (app.get('cluster') && cluster.isMaster) {
+// 	// Fork workers.
+// 	for (var i = 0; i < require('os').cpus().length; i++) {
+// 		var worker = cluster.fork();
+// 		console.log('worker ' + worker.pid + ' started at ' + new Date());
+// 	}
 
-	cluster.on('death', function(worker) {
-		console.log('worker ' + worker.pid + ' died');
-	});
-} else {
+// 	cluster.on('death', function(worker) {
+// 		console.log('worker ' + worker.pid + ' died');
+// 	});
+// } else {
 	app.listen(process.env.PORT || 3000);
-}
+// }
 
-console.log("Starting Little Note server listening on port %d in %s mode", app.address().port, app.settings.env);
+// console.log("Starting Little Note server listening on port %d in %s mode", app.address().port, app.settings.env);

@@ -60,7 +60,7 @@ exports.tryagain = function(req, res) {
 
 exports.login = function(req, res) {
 	if (typeof req.session.options === 'undefined' || req.session.req_time >= +Date.now()) {
-		getRequestToken(req, req, function() {
+		getRequestToken(req, function() {
 			redirectForOauth(req, res);
 		});
 	} else {
@@ -72,7 +72,7 @@ var redirectForOauth = function(req, res) {
 	res.redirect(req.dropbox.session.getAuthorizeUrl('http://' + req.headers.host + '/auth'));
 };
 
-var getRequestToken = function(req, res, cb) {
+var getRequestToken = function(req, cb) {
 	req.dropbox.session.getRequestToken(function(status, reply) {
 		req.session.options = reply;
 		req.session.req_time =  +Date.now() + 120;
@@ -81,7 +81,7 @@ var getRequestToken = function(req, res, cb) {
 };
 
 exports.preEmptiveLogin = function(req, res) {
-	getRequestToken(req, req, function(status) {
+	getRequestToken(req, function(status) {
 		res.statusCode = status;
 		res.end();
 	});
