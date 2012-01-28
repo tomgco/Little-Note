@@ -4,13 +4,14 @@
  */
 
 var express = require('express'),
-	routes = require('./routes'),
+	//routes = require('./routes'),
 	gzippo = require('gzippo'),
 	// cluster = require('cluster'),
-	auth = require('./lib/authentication'),
+	//auth = require('./lib/authentication'),
 	stylus = require('stylus'),
-	RedisStore = require('connect-redis')(express),
-	colors = require('colors');
+	//RedisStore = require('connect-redis')(express),
+	colors = require('colors'),
+	nib = require('nib');
 
 app = module.exports = express.createServer();
 
@@ -19,11 +20,21 @@ app.configure(function(){
 	app.set('view engine', 'jade');
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	app.use(stylus.middleware({ src: __dirname + '/public/', compress: true }));
+	app.use(stylus.middleware({
+		src: __dirname + '/public/',
+		compile : function (str, path) {
+			return stylus(str)
+							.set('filename', path)
+							.set('compress', true)
+							.use(nib())
+							.import('nib');
+		}
+	}));
+	app.use(express.favicon(__dirname + '/public/favicon.ico'));
 	app.use(express.cookieParser());
 	// @Todo Change secret key!
-	app.use(express.session({ secret: "nomnomnom", store: new RedisStore() }));
-	// app.use(gzippo.staticGzip(__dirname + '/public'));
+	//app.use(express.session({ secret: "nomnomnom", store: new RedisStore() }));
+	//app.use(gzippo.staticGzip(__dirname + '/public'));
 	app.use(gzippo.staticGzip(__dirname + '/public'));
 	app.use(gzippo.compress());
 	app.use(app.router);
@@ -42,7 +53,12 @@ app.configure('production', function(){
 
 // Routes
 
-app.get('/', routes.index);
+// Temp for redesign
+app.get('/', function (req, res) {
+	res.render('redesign', { layout : false });
+});
+
+/*app.get('/', routes.index);
 
 app.get('/about', routes.about);
 
@@ -71,7 +87,7 @@ app.post('/api/move/:location', auth.authenticationCheck, routes.api.move);
 app.get('/api/del/:location', auth.authenticationCheck, routes.api.del);
 
 app.post('/api/preview', auth.authenticationCheck, routes.api.preview);
-
+*/
 // if (cluster.isMaster) {
 // 	// Fork workers.
 // 	for (var i = 0; i < require('os').cpus().length; i++) {

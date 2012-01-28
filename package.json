@@ -13,5 +13,6 @@
     , "stylus": "< 0.20"
     , "connect-redis": "< 2.0"
     , "colors": "< 1.0"
+    , "nib": "0.3.2"
   }
 }
