@@ -39,3 +39,6 @@ Icon?
 /.cake_task_cache
 
 public/stylesheets/*.css
+
+/dbox-config.js
+/dropbox-config.js
