@@ -1,0 +1,60 @@
+!!!5
+html
+	head
+		title LittleNote
+		link(rel='stylesheet', href='/stylesheets/app/index.css')
+	body
+		header
+			h1 LN
+
+			span.new +
+
+			.actions
+				span.symbol w
+					.dropdown
+						p.name Ben Gourley
+						p: a(href='#') Help
+						p: a(href='#') Keyboard Shortcuts
+						p: a(href='#') Sign out
+
+
+		.app
+		
+			.note-list.panel
+
+				ul
+					li My first note
+					li.selected Shopping list
+					li Neural Networks Lecture Notes
+					li Todo list
+					li New design brief
+					li Some title that spills over to a new line
+
+			.note-focus.panel.preview
+				
+				.note
+
+					h1.note-title Shopping list
+
+					ul
+						li Milk
+						li Bread
+						li Eggs
+						li Cheese
+						li Mince
+						li Kidney Beans
+					p Oh and anything that's on offer
+
+			.note-focus.panel.edit
+				
+				.note
+
+					input(type='text', value='Shopping list')
+					textarea
+						| * Milk
+						| * Bread
+						| * Eggs
+						| * Cheese
+						| * Mince
+						| * Kidney Beans
+						| Oh and anything that's on offer
