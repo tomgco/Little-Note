@@ -152,7 +152,7 @@ exports.api.put = function(req, res) {
 
 exports.api.del = function(req, res) {
 	var sess = req.session;
-	req.dropbox.client.removeFile(req.params.location, sess.options, function(status, reply) {
+	req.dropbox.client.del(req.params.location, function(status, reply) {
 		handleResponse(res, status, {});
 	});
 };
@@ -167,7 +167,7 @@ exports.api.preview = function(req, res) {
 
 exports.api.move = function(req, res) {
 	var sess = req.session;
-	req.dropbox.client.moveFile(req.params.location, req.body.to, function(status, reply) {
+	req.dropbox.client.move(req.params.location, req.body.to, function(status, reply) {
 		handleResponse(res, status, {});
 	});
 };
