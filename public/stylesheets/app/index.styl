@@ -11,7 +11,7 @@ body
 	color dark
 	line-height 1.4em
 
-	header
+	.app-bar
 		background-image linear-gradient(top, light, darken(light, 5%))
 		width 50px
 		position absolute
@@ -30,40 +30,14 @@ body
 			margin-top 7px
 			text-align center
 			position relative
-
-		.new
-			border none
-			background none
-			border-top 1px solid darken(light, 20%)
-			box-shadow 0px -1px 0px rgba(white, 0.5)
-			position absolute
-			bottom 0px
-			left 0px
-			right 0px
-			width 50px
-			padding-top 5px
-			padding-bottom 5px
-			font-size 30px
-			line-height 30px
-			height 30px
-			font-family body-font-stack
-			font-weight bold
-			color dark
-			cursor pointer
-			text-shadow 0px 1px 0px rgba(white, 0.5)
-			text-align center
-
-			&:hover
-				box-shadow inset 0px 0px 10px darken(light, 30%)
 		
 		.actions
 			position absolute
-			right 15px
-			bottom 10px
+			left 0px
+			bottom 0px
 			z-index 50
 			height 39px
 			width 50px
-			display none
 
 			span
 				font-family 'IconicStrokeRegular'
@@ -71,53 +45,77 @@ body
 				line-height 26px
 				text-shadow 0px -1px 0px darken(dark, 40%), 0px 1px 0px rgba(255, 255, 255, 0.2)
 				position absolute
-				top 0px
-				right 0px
+				top 6px
+				left 16px
 				cursor pointer
 				color lighten(dark, 20%)
 			
 			.dropdown
+				font-family body-font-stack
 				position absolute
-				left 25px
-				bottom 100%
+				left 30px
+				bottom 2px
 				display none
 				width 150px
-				padding 9px
-				background-image linear-gradient(top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95))
-				border 1px solid #000
+				background-color darken(white, 2%)
 				border-radius 3px
-				box-shadow inset 0px 0px 5px rgba(255, 255, 255, 0.2), inset 0px 1px 0px rgba(255, 255, 255, 0.1), 0px 3px 10px rgba(0, 0, 0, 0.3)
-				color #ccc
+				border 1px solid #ccc
 				font-size 12px
-				text-shadow 0px 1px 2px rgba(0, 0, 0, 0.2)
+				box-shadow 0px 2px 5px rgba(black, 0.2)
 
+				&:after
+					content ''
+					position absolute
+					bottom 10px
+					left -10px
+					border 5px solid transparent
+					border-right-color darken(white, 4%)
+				
 				&:before
 					content ''
 					position absolute
-					bottom -10px
-					left 10px
-					border 5px solid transparent
-					border-top-color #000
+					bottom 8px
+					left -14px
+					border 7px solid transparent
+					border-right-color #ccc
 
 				.name
 					font-weight bold
-					padding-bottom 3px
-					border-bottom 1px solid #000
-					margin-bottom 7px
-					box-shadow 0px 1px 0px rgba(255, 255, 255, 0.08)
+					color #aaa
+					text-shadow none
+					padding 3px 12px
+
+					&:before
+						content 'Hello, '
+						font-weight normal
+
+					&:after
+						content '!'
+						font-weight normal
 
 				a
-					color #ccc
+					color dark
+					text-shadow none
 					text-decoration none
 					display block
+					border-bottom 1px solid #eaeaea
+					padding 3px 12px
+					background-color darken(white, 2%)
 
 					&:hover
-						color bright
+						background-color light
+						color white
+						text-shadow 0px -1px 0px darken(light, 30%)
+						border-bottom 1px solid darken(light, 10%)
+						box-shadow inset 0px 1px 0px rgba(white, 0.1)
+
+				p:first-child a
+					border-radius 2px 2px 0px 0px
+				
 
 			&:hover
 				span
-					color bright
-					text-shadow 0px -1px 0px darken(dark, 30%), 0px 1px 0px rgba(255, 255, 255, 0.1), 0px 0px 5px rgba(13, 117, 220, 0.8)
+					color dark
 				.dropdown
 					display block
 
@@ -163,28 +161,89 @@ body
 			position relative
 			border-top 1px solid #eaeaea
 			border-bottom 1px solid #eaeaea
+			overflow hidden
 
 			&:hover
-				background-color #fff
+				background-color #fcfcfc
 		
 			&.selected
 				color dark
+				background-color darken(white, 1%)
+				
+				&:after
+					content ''
+					position absolute
+					top -10px
+					right -10px
+					height 20px
+					width 20px
+					background-image linear-gradient(bottom, detail, darken(detail, 30%))
+					transform rotate(45deg)
+					background-color detail
+
 
 	.note-focus
 		right 0
 		width 75%
+		overflow-x hidden
+		overflow-y auto
+
+		.note-title
+			border-bottom 1px solid #eaeaea
+			border-left 1px solid #eaeaea
+			border-right 1px solid #eaeaea
+			border-top 3px solid detail
+			overflow hidden
+			background-color darken(white, 1%)
+			padding 20px
+			margin 0px 20px 20px
+			border-radius 0px 0px 2px 2px
+			
+			h1
+				font-size 26px
+				line-height 30px
+				text-shadow 0px 1px 0px #fff
+				clear left
+
+			.date
+				border-radius 3px
+				float right
+				display inline
+				font-size 12px
+				line-height 12px
+				position relative
+				border 1px solid darken(light, 20%)
+				background-color lighten(light, 20%)
+				text-shadow 0px -1px 0px lighten(light, 40%)
+				color darken(light, 50%)
+				padding 3px 5px
+				box-shadow inset 0px 1px 0px rgba(white, 0.1)
+				margin 0px 0px 0px 10px
+				
+				.year
+				.day
+				.month
+					height 12px
+					float left
+				
+				.month
+					padding-left 3px
+					padding-right 3px
+				
+			.last-edit
+				float right
+				clear right
+				display inline
+				font-size 10px
+				font-style italic
+				color #ccc
+				padding-right 5px
+				text-shadow 0px -1px 0px white
 
 		.note
-			padding 20px
-			overflow auto
+			padding 0px 20px 20px
+			margin 0px 20px		
 
-			.note-title
-				font-size 26px
-				margin-bottom 20px
-				padding-bottom 20px
-				border-bottom 1px dashed #ccc
-				text-shadow 0px 1px 0px #fff
-			
 			p
 			ul
 			ol
@@ -213,57 +272,3 @@ body
 		textarea
 			height 300px
 			width 80%
-
-@keyframes zoom {
-	0% {
-		transform scale(0)
-		opacity 0
-	}
-	100% {
-		transform scale(1)
-		opacity 1
-	}
-}
-
-@keyframes frontflip {
-	0% {
-		transform rotateY(0deg) scale(1)
-	}
-	36% {
-		transform rotateY(0deg) scale(1)
-	}
-	38% {
-		transform rotateY(0deg) scale(0.8)
-	}
-	45% {
-		transform rotateY(180deg) scale(0.8)
-	}
-	47% {
-		transform rotateY(180deg) scale(1)
-	}
-	100% {
-		transform rotateY(180deg) scale(1)
-	}
-}
-
-@keyframes backflip {
-	0% {
-		transform rotateY(-180deg) scale(1)
-	}
-	36% {
-		transform rotateY(-180deg) scale(1)
-	}
-	38% {
-		transform rotateY(-180deg) scale(0.8)
-	}
-	45% {
-		transform rotateY(0deg) scale(0.8)
-	}
-	47% {
-		transform rotateY(0deg) scale(1)
-	}
-	100% {
-		transform rotateY(0deg) scale(1)
-	}
-}
-

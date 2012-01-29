@@ -15,4 +15,8 @@
     , "colors": "< 1.0"
     , "nib": "0.3.2"
   }
+  "launchconf" : {
+    "remote" : "roo",
+    "remotepath" : "/var/w/"
+  }
 }

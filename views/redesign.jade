@@ -4,18 +4,16 @@ html
 		title LittleNote
 		link(rel='stylesheet', href='/stylesheets/app/index.css')
 	body
-		header
+		header.app-bar
 			h1 LN
-
-			span.new +
 
 			.actions
 				span.symbol w
 					.dropdown
-						p.name Ben Gourley
 						p: a(href='#') Help
 						p: a(href='#') Keyboard Shortcuts
 						p: a(href='#') Sign out
+						p.name Ben Gourley
 
 
 		.app
@@ -30,12 +28,17 @@ html
 					li New design brief
 					li Some title that spills over to a new line
 
-			.note-focus.panel.preview
-				
+			.note-focus.panel
+
+				header.note-title
+					p.date
+						span.day 23rd
+						span.month January
+						span.year 2012
+					p.last-edit Last edit: 25/01/2012
+					h1 Shopping list
+
 				.note
-
-					h1.note-title Shopping list
-
 					ul
 						li Milk
 						li Bread
@@ -44,17 +47,3 @@ html
 						li Mince
 						li Kidney Beans
 					p Oh and anything that's on offer
-
-			.note-focus.panel.edit
-				
-				.note
-
-					input(type='text', value='Shopping list')
-					textarea
-						| * Milk
-						| * Bread
-						| * Eggs
-						| * Cheese
-						| * Mince
-						| * Kidney Beans
-						| Oh and anything that's on offer
