@@ -5,7 +5,6 @@ var markdown = require( "markdown" ).markdown,
  */
 
 exports.index = function(req, res) {
-	console.log(req.session.dropbox);
 	if (typeof req.session.dropbox === 'undefined' || !req.session.dropbox.authenticated) {
 		renderIndex(req, res);
 	} else {
