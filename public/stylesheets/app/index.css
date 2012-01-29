@@ -15,7 +15,7 @@ body .app-bar .actions .dropdown .name{font-weight:bold;color:#aaa;text-shadow:n
 body .app-bar .actions .dropdown .name:before{content:'Hello, ';font-weight:normal}
 body .app-bar .actions .dropdown .name:after{content:'!';font-weight:normal}
 body .app-bar .actions .dropdown a{color:#333;text-shadow:none;text-decoration:none;display:block;border-bottom:1px solid #eaeaea;padding:3px 12px;background-color:#fafafa;}
-body .app-bar .actions .dropdown a:hover{background-color:#f3de52;color:#fff;text-shadow:0 -1px 0 #d5bb0f;border-bottom:1px solid #f1d834;-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.10);-moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.10);box-shadow:inset 0 1px 0 rgba(255,255,255,0.10)}
+body .app-bar .actions .dropdown a:hover{background-color:#f3de52;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #f3de52), color-stop(1, #efd215));background-image:-webkit-linear-gradient(top, #f3de52 0%, #efd215 100%);background-image:-moz-linear-gradient(top, #f3de52 0%, #efd215 100%);background-image:linear-gradient(top, #f3de52 0%, #efd215 100%);color:#fff;text-shadow:0 -1px 0 #d5bb0f;border-bottom:1px solid #f1d834;-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.10);-moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.10);box-shadow:inset 0 1px 0 rgba(255,255,255,0.10)}
 body .app-bar .actions .dropdown p:first-child a{-webkit-border-radius:2px 2px 0 0;-moz-border-radius:2px 2px 0 0;border-radius:2px 2px 0 0}
 body .app-bar .actions:hover span{color:#333}
 body .app-bar .actions:hover .dropdown{display:block}
