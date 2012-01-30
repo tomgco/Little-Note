@@ -22,8 +22,8 @@ html
 
 				ul
 					li My first note
-					li.selected Shopping list
-					li Neural Networks Lecture Notes
+					li Shopping list
+					li.selected Neural Networks Lecture Notes
 					li Todo list
 					li New design brief
 					li Some title that spills over to a new line
@@ -36,14 +36,34 @@ html
 						span.month January
 						span.year 2012
 					p.last-edit Last edit: 25/01/2012
-					h1 Shopping list
+					h1 Neural Networks Lecture Notes
 
 				.note
+					p Components of neural networks:
 					ul
-						li Milk
-						li Bread
-						li Eggs
-						li Cheese
-						li Mince
-						li Kidney Beans
-					p Oh and anything that's on offer
+						li units - type of neurone
+						li interactions - direction of communication etc.
+						li structure - how many layers, how many units, topology of network
+					p
+						| Single neurone spike time is *meaningless* – apparently random.
+						| So measure rate. This means smaller measures can be quantified
+						| (data becomes less discreet).
+
+					p Free parameters – the ones that should be manipulated:
+
+					ul
+						li The function
+						li The weights
+						li The bias
+
+					p A network is a model with its set of parameters. I transforms some input data in to an output.
+
+					p Generalisation. Network has no value if it just learns input/output value. Hash table can do this.
+
+					p Network should be able to transform input it hasn't seen before. The model should be generalised.
+
+					p Networks learns a 'correct' mapping from input to output.
+
+					p Look at distribution of training set. Need to hold back some data from all classifications for generalised training, errors.
+
+					p Pre-processing, feature detection & using prior knowledge. Mapped in to very simple space.
